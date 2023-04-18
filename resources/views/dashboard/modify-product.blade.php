@@ -260,7 +260,7 @@
 
                     <div class="col-4 offset-4 d-flex flex-column h-100">
                         <div class="modal-body d-flex flex-column justify-content-center align-items-center">
-                                    <form class="row g-3" action="{{ route('modify.produit', ['produit' => $data['produit']->id, 'slug' => $data['produit']->slug]) }}">
+                                    <form class="row g-3" method="post" action="{{ route('modify.produit', ['produit' => $data['produit']->id, 'slug' => $data['produit']->slug]) }}">
                                         @csrf
                                         @method('PUT')
                                         <div class="col-md-12">
@@ -287,7 +287,7 @@
                                             <div class="form-floating mb-3">
                                                 <select class="form-select @error('categorie') is-invalid @enderror" id="floatingSelect" aria-label="Categorie" name="categorie" required >
                                                     @foreach ($data['categories'] as $catego)
-                                                        <option value="{{ $catego->id }}" @selected((old('categorie') ? old('categorie') : $data['produit']->libelle ) == $data['produit']->libelle)>{{$catego->libelle}}</option>
+                                                        <option value="{{ $catego->id }}" @selected((old('categorie') ? old('categorie') : $data['produit']->id ) === $catego->id)>{{$catego->libelle}}</option>
                                                     @endforeach
                                                 </select>
                                                 <label for="floatingSelect">Categorie</label>

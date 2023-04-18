@@ -250,7 +250,20 @@
             </ol>
         </nav>
     </div><!-- End Page Title -->
-
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle me-1"></i>
+            {{session('success')}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if(session('danger'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-octagon me-1"></i>
+            {{session('danger')}}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
     <section class="section dashboard">
         <div class="row">
 
@@ -395,7 +408,13 @@
                                                 <td>
                                                     <a href="{{ route('view.details', ['slug' => $produit->slug, 'produit' => $produit->id]) }}"><button type="button" class="btn btn-success btn-sm"><i class="bi bi-eye-fill"></i></button></a>
                                                     <a href="{{ route('modify.details', ['slug' => $produit->slug, 'produit' => $produit->id]) }}"><button type="button" class="btn btn-warning btn-sm"><i class="bi bi-vector-pen"></i></button></a>
-                                                    <button type="button" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i></button>
+                                                    <button type="button" class="btn btn-danger btn-sm"  onclick="event.preventDefault();document.getElementById('delete-form').submit();">
+                                                        <i class="bi bi-trash"></i>
+                                                        <form id="delete-form" action="{{ route('delete.produit',  ['slug' => $produit->slug, 'produit' => $produit->id]) }}" method="POST" class="d-none">
+                                                            @csrf
+                                                            @method('delete')
+                                                        </form>
+                                                    </button>
                                                 </td>
                                             </tr>
                                         @endforeach

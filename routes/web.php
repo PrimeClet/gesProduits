@@ -54,10 +54,15 @@ Route::prefix('dashboar')->group(function () {
         'slug' => '[a-z0-9\-]+',
     ])->name('modify.details');
 
-    Route::post('/product-modify/{slug}-{produit}', [ProduitController::class, 'update'])->where([
+    Route::put('/product-modify/{slug}-{produit}', [ProduitController::class, 'update'])->where([
         'produit' => '[0-9]+',
         'slug' => '[a-z0-9\-]+',
     ])->name('modify.produit');
+
+    Route::delete('/product-delete/{slug}-{produit}', [ProduitController::class, 'destroy'])->where([
+        'produit' => '[0-9]+',
+        'slug' => '[a-z0-9\-]+',
+    ])->name('delete.produit');
 
     Route::post('/produits/add', [ProduitController::class, 'store'])->name('create.produits');
 })->middleware('auth');
